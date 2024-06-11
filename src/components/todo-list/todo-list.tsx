@@ -1,13 +1,18 @@
 import { Stack } from "@mui/material";
 import EmptyList from "../empty-list/empty-list";
-import { ItemToDo } from "../../types/types";
 import ToDoItem from "../todo-item/todo-item";
+import { useDispatch, useSelector } from "react-redux";
+import { todosSelector } from "../../storage/selector";
+import { useEffect } from "react";
+import { getTodosAction } from "../../storage/actions";
 
 const ToDoList = () => {
-  const todos: ItemToDo[] = [
-    { id: 1, title: "Купить молоко" },
-    { id: 2, title: "Почитать полезную книгу" },
-  ];
+  const { todos } = useSelector(todosSelector);
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTodosAction());
+  }, []);
 
   if (!todos.length) {
     return <EmptyList />;
