@@ -1,17 +1,47 @@
 {
   "posts": [
-    { "id": "1", "title": "a title", "views": 100 },
-    { "id": "2", "title": "another title", "views": 200 }
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    }
   ],
   "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
-    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
   ],
   "profile": {
     "name": "typicode"
   },
   "todos": [
-    { "id": 1, "title": "Купить молоко" },
-    { "id": 2, "title": "Почитать полезную книгу" }
+    {
+      "id": "1",
+      "title": "Купить молоко"
+    },
+    {
+      "id": "2",
+      "title": "Почитать полезную книгу"
+    },
+    {
+      "id": "4a8c",
+      "title": "Устроиться на работу"
+    },
+    {
+      "id": "8150",
+      "title": "Перестать переживать по всякой ерунде"
+    }
   ]
 }

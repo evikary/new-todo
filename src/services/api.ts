@@ -15,3 +15,18 @@ export const getTodosApi = (): Promise<ItemToDo[]> => {
     .then((json) => json)
     .catch((err) => Promise.reject(err));
 };
+
+export const addTodoApi = (
+  todoData: Pick<ItemToDo, "title">
+): Promise<ItemToDo> => {
+  return fetch(`${URL}/todos`, {
+    method: "POST",
+    body: JSON.stringify(todoData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((data) => checkResponse<ItemToDo>(data))
+    .then((json) => json)
+    .catch((err) => Promise.reject(err));
+};

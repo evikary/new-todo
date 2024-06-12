@@ -1,5 +1,8 @@
-import { ItemToDo, TodosActions } from "../types/types";
+import { AllActions, ItemToDo } from "../types/types";
 import {
+  CREATE_TODO_FAILED,
+  CREATE_TODO_REQUEST,
+  CREATE_TODO_SUCCESS,
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
@@ -19,7 +22,7 @@ const initialState: State = {
 
 export const todosReducer = (
   state = initialState,
-  action: TodosActions
+  action: AllActions
 ): State => {
   switch (action.type) {
     case GET_TODOS_REQUEST: {
@@ -38,6 +41,28 @@ export const todosReducer = (
       };
     }
     case GET_TODOS_FAILED: {
+      return {
+        ...state,
+        load: false,
+        fail: true,
+      };
+    }
+    case CREATE_TODO_REQUEST: {
+      return {
+        ...state,
+        load: true,
+        fail: false,
+      };
+    }
+    case CREATE_TODO_SUCCESS: {
+      return {
+        ...state,
+        load: false,
+        todos: [...state.todos, action.payload],
+        fail: false,
+      };
+    }
+    case CREATE_TODO_FAILED: {
       return {
         ...state,
         load: false,
