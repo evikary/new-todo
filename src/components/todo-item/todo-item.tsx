@@ -2,7 +2,7 @@ import { Box, Divider, Typography } from "@mui/material";
 import ToolBar from "../todo-tool-bar/todo-tool-bar";
 
 interface ToDoProps {
-  id: number;
+  id: string;
   title: string;
 }
 
@@ -19,7 +19,7 @@ const ToDoItem = ({ id, title }: ToDoProps) => {
         >
           {title}
         </Typography>
-        <ToolBar />
+        <ToolBar idTodo={id} />
       </Box>
       <Divider />
     </Box>

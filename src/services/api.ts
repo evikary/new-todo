@@ -30,3 +30,12 @@ export const addTodoApi = (
     .then((json) => json)
     .catch((err) => Promise.reject(err));
 };
+
+export const deleteTodoApi = (idTodo: string): Promise<string> => {
+  return fetch(`${URL}/todos/${idTodo}`, {
+    method: "DELETE",
+  })
+    .then((data) => checkResponse<ItemToDo>(data))
+    .then((json) => json.id)
+    .catch((err) => Promise.reject(err));
+};

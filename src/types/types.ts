@@ -2,13 +2,16 @@ import {
   CREATE_TODO_FAILED,
   CREATE_TODO_REQUEST,
   CREATE_TODO_SUCCESS,
+  DELETE_TODO_FAILED,
+  DELETE_TODO_REQUEST,
+  DELETE_TODO_SUCCESS,
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
 } from "../storage/actions";
 
 export type ItemToDo = {
-  id: number;
+  id: string;
   title: string;
 };
 
@@ -38,10 +41,26 @@ export interface CreateTodoRequestFailed {
   readonly type: typeof CREATE_TODO_FAILED;
 }
 
+export interface DeleteTodoRequestAction {
+  readonly type: typeof DELETE_TODO_REQUEST;
+}
+
+export interface DeleteTodoSuccessAction {
+  readonly type: typeof DELETE_TODO_SUCCESS;
+  readonly payload: string;
+}
+
+export interface DeleteTodoFailedAction {
+  readonly type: typeof DELETE_TODO_FAILED;
+}
+
 export type AllActions =
   | GetTodoRequestAction
   | GetTodoRequestFailed
   | GetTodoSuccessAction
   | CreateTodoRequestAction
   | CreateTodoSuccessAction
-  | CreateTodoRequestFailed;
+  | CreateTodoRequestFailed
+  | DeleteTodoRequestAction
+  | DeleteTodoSuccessAction
+  | DeleteTodoFailedAction;

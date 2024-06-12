@@ -9,10 +9,10 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { ChangeEvent, useState } from "react";
-import { addTodoApi } from "../../services/api";
 import { createTodoAction } from "../../storage/actions";
 import { useDispatch } from "react-redux";
 import { setFirstLetter } from "../../utils/common-utils";
+import { deleteTodoApi } from "../../services/api";
 
 const style = {
   position: "absolute" as "absolute",
@@ -42,6 +42,7 @@ const AddToDoButton = () => {
 
   const createTodo = () => {
     if (form.title === "") {
+      deleteTodoApi("8150");
       handleClose();
     } else {
       dispatch(createTodoAction(form));

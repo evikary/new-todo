@@ -3,6 +3,9 @@ import {
   CREATE_TODO_FAILED,
   CREATE_TODO_REQUEST,
   CREATE_TODO_SUCCESS,
+  DELETE_TODO_FAILED,
+  DELETE_TODO_REQUEST,
+  DELETE_TODO_SUCCESS,
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
@@ -63,6 +66,28 @@ export const todosReducer = (
       };
     }
     case CREATE_TODO_FAILED: {
+      return {
+        ...state,
+        load: false,
+        fail: true,
+      };
+    }
+    case DELETE_TODO_REQUEST: {
+      return {
+        ...state,
+        load: true,
+        fail: false,
+      };
+    }
+    case DELETE_TODO_SUCCESS: {
+      return {
+        ...state,
+        load: false,
+        todos: state.todos.filter((item) => item.id !== action.payload),
+        fail: false,
+      };
+    }
+    case DELETE_TODO_FAILED: {
       return {
         ...state,
         load: false,
