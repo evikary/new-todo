@@ -8,11 +8,18 @@ import {
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
+  TOGGLE_DONE_FAILED,
+  TOGGLE_DONE_REQUEST,
+  TOGGLE_DONE_SUCCESS,
+  TOGGLE_TITLE_FAILED,
+  TOGGLE_TITLE_REQUEST,
+  TOGGLE_TITLE_SUCCESS,
 } from "../storage/actions";
 
 export type ItemToDo = {
   id: string;
   title: string;
+  done: boolean;
 };
 
 export interface GetTodoRequestAction {
@@ -54,6 +61,32 @@ export interface DeleteTodoFailedAction {
   readonly type: typeof DELETE_TODO_FAILED;
 }
 
+export interface ToggleDoneRequestAction {
+  readonly type: typeof TOGGLE_DONE_REQUEST;
+}
+
+export interface ToggleDoneSuccessAction {
+  readonly type: typeof TOGGLE_DONE_SUCCESS;
+  readonly payload: ItemToDo;
+}
+
+export interface ToggleDoneFailedAction {
+  readonly type: typeof TOGGLE_DONE_FAILED;
+}
+
+export interface ToggleTitleRequestAction {
+  readonly type: typeof TOGGLE_TITLE_REQUEST;
+}
+
+export interface ToggleTitleSuccessAction {
+  readonly type: typeof TOGGLE_TITLE_SUCCESS;
+  readonly payload: ItemToDo;
+}
+
+export interface ToggleTitleFailedAction {
+  readonly type: typeof TOGGLE_TITLE_FAILED;
+}
+
 export type AllActions =
   | GetTodoRequestAction
   | GetTodoRequestFailed
@@ -63,4 +96,10 @@ export type AllActions =
   | CreateTodoRequestFailed
   | DeleteTodoRequestAction
   | DeleteTodoSuccessAction
-  | DeleteTodoFailedAction;
+  | DeleteTodoFailedAction
+  | ToggleDoneRequestAction
+  | ToggleDoneSuccessAction
+  | ToggleDoneFailedAction
+  | ToggleTitleRequestAction
+  | ToggleTitleSuccessAction
+  | ToggleTitleFailedAction;

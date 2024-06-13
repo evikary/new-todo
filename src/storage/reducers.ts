@@ -9,6 +9,12 @@ import {
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
+  TOGGLE_DONE_FAILED,
+  TOGGLE_DONE_REQUEST,
+  TOGGLE_DONE_SUCCESS,
+  TOGGLE_TITLE_FAILED,
+  TOGGLE_TITLE_REQUEST,
+  TOGGLE_TITLE_SUCCESS,
 } from "./actions";
 
 export interface State {
@@ -88,6 +94,56 @@ export const todosReducer = (
       };
     }
     case DELETE_TODO_FAILED: {
+      return {
+        ...state,
+        load: false,
+        fail: true,
+      };
+    }
+    case TOGGLE_DONE_REQUEST: {
+      return {
+        ...state,
+        load: true,
+        fail: false,
+      };
+    }
+    case TOGGLE_DONE_SUCCESS: {
+      return {
+        ...state,
+        load: false,
+        todos: state.todos.map((item) =>
+          item.id === action.payload.id ? { ...item, done: !item.done } : item
+        ),
+        fail: false,
+      };
+    }
+    case TOGGLE_DONE_FAILED: {
+      return {
+        ...state,
+        load: false,
+        fail: true,
+      };
+    }
+    case TOGGLE_TITLE_REQUEST: {
+      return {
+        ...state,
+        load: true,
+        fail: false,
+      };
+    }
+    case TOGGLE_TITLE_SUCCESS: {
+      return {
+        ...state,
+        load: false,
+        todos: state.todos.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, title: action.payload.title }
+            : item
+        ),
+        fail: false,
+      };
+    }
+    case TOGGLE_TITLE_FAILED: {
       return {
         ...state,
         load: false,

@@ -39,3 +39,19 @@ export const deleteTodoApi = (idTodo: string): Promise<string> => {
     .then((json) => json.id)
     .catch((err) => Promise.reject(err));
 };
+
+export const toggleTodoApi = (
+  id: string,
+  data: Partial<ItemToDo>
+): Promise<ItemToDo> => {
+  return fetch(`${URL}/todos/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((data) => checkResponse<ItemToDo>(data))
+    .then((json) => json)
+    .catch((err) => Promise.reject(err));
+};
