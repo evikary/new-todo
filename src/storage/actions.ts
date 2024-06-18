@@ -5,7 +5,13 @@ import {
   getTodosApi,
   toggleTodoApi,
 } from "../services/api";
-import { ItemToDo } from "../types/types";
+import {
+  FilterTodosAllAction,
+  FilterTodosDoneAction,
+  FilterTodosPersonAction,
+  FilterTodosWorkAction,
+  ItemToDo,
+} from "../types/types";
 
 export const GET_TODOS_REQUEST = "GET_TODOS_REQUEST";
 export const GET_TODOS_SUCCESS = "GET_TODOS_SUCCESS";
@@ -27,6 +33,27 @@ export const TOGGLE_TITLE_REQUEST = "TOGGLE_TITLE_REQUEST";
 export const TOGGLE_TITLE_SUCCESS = "TOGGLE_TITLE_SUCCESS";
 export const TOGGLE_TITLE_FAILED = "TOGGLE_TITLE_FAILED";
 
+export const FILTER_TODOS_ALL = "FILTER_TODOS_ALL";
+export const FILTER_TODOS_DONE = "FILTER_TODOS_DONE";
+export const FILTER_TODOS_WORK = "FILTER_TODOS_WORK";
+export const FILTER_TODOS_PERSON = "FILTER_TODOS_PERSON";
+
+export const getTodosAllAction = (): FilterTodosAllAction => ({
+  type: FILTER_TODOS_ALL,
+});
+
+export const getTodosDoneAction = (): FilterTodosDoneAction => ({
+  type: FILTER_TODOS_DONE,
+});
+
+export const getTodosWorkAction = (): FilterTodosWorkAction => ({
+  type: FILTER_TODOS_WORK,
+});
+
+export const getTodosPersonAction = (): FilterTodosPersonAction => ({
+  type: FILTER_TODOS_PERSON,
+});
+
 export function getTodosAction() {
   return function (dispatch: Dispatch) {
     dispatch({
@@ -42,7 +69,7 @@ export function getTodosAction() {
   };
 }
 
-export function createTodoAction(data: Pick<ItemToDo, "title">) {
+export function createTodoAction(data: Pick<ItemToDo, "title" | "typeTask">) {
   return function (dispatch: Dispatch) {
     dispatch({
       type: CREATE_TODO_REQUEST,

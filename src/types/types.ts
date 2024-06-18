@@ -5,6 +5,10 @@ import {
   DELETE_TODO_FAILED,
   DELETE_TODO_REQUEST,
   DELETE_TODO_SUCCESS,
+  FILTER_TODOS_ALL,
+  FILTER_TODOS_DONE,
+  FILTER_TODOS_PERSON,
+  FILTER_TODOS_WORK,
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
@@ -20,6 +24,7 @@ export type ItemToDo = {
   id: string;
   title: string;
   done: boolean;
+  typeTask: "work" | "person";
 };
 
 export interface GetTodoRequestAction {
@@ -87,6 +92,22 @@ export interface ToggleTitleFailedAction {
   readonly type: typeof TOGGLE_TITLE_FAILED;
 }
 
+export interface FilterTodosDoneAction {
+  readonly type: typeof FILTER_TODOS_DONE;
+}
+
+export interface FilterTodosWorkAction {
+  readonly type: typeof FILTER_TODOS_WORK;
+}
+
+export interface FilterTodosPersonAction {
+  readonly type: typeof FILTER_TODOS_PERSON;
+}
+
+export interface FilterTodosAllAction {
+  readonly type: typeof FILTER_TODOS_ALL;
+}
+
 export type AllActions =
   | GetTodoRequestAction
   | GetTodoRequestFailed
@@ -102,4 +123,8 @@ export type AllActions =
   | ToggleDoneFailedAction
   | ToggleTitleRequestAction
   | ToggleTitleSuccessAction
-  | ToggleTitleFailedAction;
+  | ToggleTitleFailedAction
+  | FilterTodosDoneAction
+  | FilterTodosWorkAction
+  | FilterTodosPersonAction
+  | FilterTodosAllAction;

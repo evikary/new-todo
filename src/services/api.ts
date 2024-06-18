@@ -17,7 +17,7 @@ export const getTodosApi = (): Promise<ItemToDo[]> => {
 };
 
 export const addTodoApi = (
-  todoData: Pick<ItemToDo, "title">
+  todoData: Pick<ItemToDo, "title" | "typeTask">
 ): Promise<ItemToDo> => {
   return fetch(`${URL}/todos`, {
     method: "POST",

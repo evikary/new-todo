@@ -6,6 +6,10 @@ import {
   DELETE_TODO_FAILED,
   DELETE_TODO_REQUEST,
   DELETE_TODO_SUCCESS,
+  FILTER_TODOS_ALL,
+  FILTER_TODOS_DONE,
+  FILTER_TODOS_PERSON,
+  FILTER_TODOS_WORK,
   GET_TODOS_FAILED,
   GET_TODOS_REQUEST,
   GET_TODOS_SUCCESS,
@@ -21,12 +25,14 @@ export interface State {
   load: boolean;
   fail: boolean;
   todos: ItemToDo[];
+  filter: "all" | "work" | "person" | "done";
 }
 
 const initialState: State = {
   load: false,
   fail: false,
   todos: [],
+  filter: "all",
 };
 
 export const todosReducer = (
@@ -46,6 +52,7 @@ export const todosReducer = (
         ...state,
         load: false,
         todos: action.payload,
+        filter: "all",
         fail: false,
       };
     }
@@ -148,6 +155,38 @@ export const todosReducer = (
         ...state,
         load: false,
         fail: true,
+      };
+    }
+    case FILTER_TODOS_ALL: {
+      return {
+        ...state,
+        load: false,
+        filter: "all",
+        fail: false,
+      };
+    }
+    case FILTER_TODOS_DONE: {
+      return {
+        ...state,
+        load: false,
+        filter: "done",
+        fail: false,
+      };
+    }
+    case FILTER_TODOS_WORK: {
+      return {
+        ...state,
+        load: false,
+        filter: "work",
+        fail: false,
+      };
+    }
+    case FILTER_TODOS_PERSON: {
+      return {
+        ...state,
+        load: false,
+        filter: "person",
+        fail: false,
       };
     }
     default: {

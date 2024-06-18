@@ -28,23 +28,20 @@
   },
   "todos": [
     {
-      "id": "2",
-      "title": "Почитать полезную книжку =))",
-      "done": false
-    },
-    {
-      "id": "4a8c",
+      "id": "b48f",
       "title": "Устроиться на работу",
-      "done": false
+      "typeTask": "work"
     },
     {
-      "id": "4a8a",
-      "title": "Посмотреть фильм",
+      "id": "c455",
+      "title": "Купить шампунь",
+      "typeTask": "person"
+    },
+    {
+      "id": "f926",
+      "title": "Попить чай",
+      "typeTask": "person",
       "done": true
-    },
-    {
-      "id": "b6c3",
-      "title": "Рррррр"
     }
   ]
 }

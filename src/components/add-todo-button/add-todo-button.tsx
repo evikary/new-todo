@@ -1,7 +1,12 @@
 import {
   Box,
   Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Modal,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -12,6 +17,7 @@ import { ChangeEvent, useState } from "react";
 import { createTodoAction } from "../../storage/actions";
 import { useDispatch } from "react-redux";
 import { setFirstLetter } from "../../utils/common-utils";
+import { ItemToDo } from "../../types/types";
 
 const style = {
   position: "absolute" as "absolute",
@@ -28,7 +34,10 @@ const style = {
 const AddToDoButton = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ title: "" });
+  const [form, setForm] = useState<Pick<ItemToDo, "title" | "typeTask">>({
+    title: "",
+    typeTask: "work",
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -39,13 +48,17 @@ const AddToDoButton = () => {
     });
   };
 
+  const onChangeSelectedValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, typeTask: e.target.value as "work" | "person" });
+  };
+
   const createTodo = () => {
     if (form.title === "") {
       handleClose();
     } else {
       dispatch(createTodoAction(form));
       handleClose();
-      setForm({ title: "" });
+      setForm({ title: "", typeTask: "work" });
     }
   };
 
@@ -101,6 +114,37 @@ const AddToDoButton = () => {
               defaultValue={form.title}
             />
           </Stack>
+          <FormControl fullWidth={true}>
+            <FormLabel id="demo-row-radio-buttons-group-label">
+              Категория задачи
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+            >
+              <FormControlLabel
+                control={
+                  <Radio
+                    onChange={onChangeSelectedValue}
+                    value="work"
+                    checked={form.typeTask === "work"}
+                  />
+                }
+                label="Рабочая"
+              />
+              <FormControlLabel
+                control={
+                  <Radio
+                    onChange={onChangeSelectedValue}
+                    value="person"
+                    checked={form.typeTask === "person"}
+                  />
+                }
+                label="Личная"
+              />
+            </RadioGroup>
+          </FormControl>
           <Button onClick={createTodo} sx={{ color: "black" }}>
             Создать
           </Button>
