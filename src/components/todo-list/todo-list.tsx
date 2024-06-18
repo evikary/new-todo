@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, useMediaQuery } from "@mui/material";
 import EmptyList from "../empty-list/empty-list";
 import ToDoItem from "../todo-item/todo-item";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const ToDoList = () => {
   const { todos } = useSelector(todosSelector);
   const { filter } = useSelector(todosSelector);
   const dispatch: any = useDispatch();
+  const matches = useMediaQuery("(min-width:500px)");
 
   useEffect(() => {
     dispatch(getTodosAction());
@@ -23,7 +24,7 @@ const ToDoList = () => {
   }
 
   return (
-    <Stack sx={{ minWidth: "500px" }}>
+    <Stack sx={{ minWidth: matches ? "500px" : "400px" }}>
       {tasks.map((item) => (
         <ToDoItem key={item.id} {...item} />
       ))}

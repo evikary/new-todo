@@ -28,18 +28,13 @@
   },
   "todos": [
     {
-      "id": "b48f",
+      "id": "e92e",
       "title": "Устроиться на работу",
       "typeTask": "work"
     },
     {
-      "id": "c455",
-      "title": "Купить шампунь",
-      "typeTask": "person"
-    },
-    {
-      "id": "f926",
-      "title": "Попить чай",
+      "id": "bd55",
+      "title": "Купить вкусное",
       "typeTask": "person",
       "done": true
     }

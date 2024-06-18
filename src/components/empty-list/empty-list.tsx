@@ -1,8 +1,10 @@
-import { Container, Divider, Typography } from "@mui/material";
+import { Container, Divider, Typography, useMediaQuery } from "@mui/material";
 
 const EmptyList = () => {
+  const matches = useMediaQuery("(min-width:700px)");
+
   return (
-    <Container component="div" sx={{ width: "700px" }}>
+    <Container component="div" sx={{ width: matches ? "700px" : "400" }}>
       <Divider />
       <Typography
         component="h3"
