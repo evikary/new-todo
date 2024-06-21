@@ -1,4 +1,12 @@
-import { ItemToDo } from "../types/types";
+import {
+  AddTodoApi,
+  DeleteTodoApi,
+  GetTodosApi,
+  ItemToDo,
+  ToggleData,
+  ToggleTodoApi,
+  UnitApi,
+} from "../types/types";
 import { URL } from "./constants";
 
 const checkResponse = async <T>(res: Response): Promise<T> => {
@@ -9,14 +17,14 @@ const checkResponse = async <T>(res: Response): Promise<T> => {
   return json;
 };
 
-export const getTodosApi = (): Promise<ItemToDo[]> => {
+export const getTodosApi: GetTodosApi = (): Promise<ItemToDo[]> => {
   return fetch(`${URL}/todos`)
     .then((data) => checkResponse<ItemToDo[]>(data))
     .then((json) => json)
     .catch((err) => Promise.reject(err));
 };
 
-export const addTodoApi = (
+export const addTodoApi: AddTodoApi = (
   todoData: Pick<ItemToDo, "title" | "typeTask">
 ): Promise<ItemToDo> => {
   return fetch(`${URL}/todos`, {
@@ -31,7 +39,9 @@ export const addTodoApi = (
     .catch((err) => Promise.reject(err));
 };
 
-export const deleteTodoApi = (idTodo: string): Promise<string> => {
+export const deleteTodoApi: DeleteTodoApi = (
+  idTodo: string
+): Promise<string> => {
   return fetch(`${URL}/todos/${idTodo}`, {
     method: "DELETE",
   })
@@ -40,13 +50,12 @@ export const deleteTodoApi = (idTodo: string): Promise<string> => {
     .catch((err) => Promise.reject(err));
 };
 
-export const toggleTodoApi = (
-  id: string,
-  data: Partial<ItemToDo>
+export const toggleTodoApi: ToggleTodoApi = (
+  dataTodo: ToggleData
 ): Promise<ItemToDo> => {
-  return fetch(`${URL}/todos/${id}`, {
+  return fetch(`${URL}/todos/${dataTodo.id}`, {
     method: "PATCH",
-    body: JSON.stringify(data),
+    body: JSON.stringify(dataTodo.data),
     headers: {
       "Content-Type": "application/json",
     },
@@ -54,4 +63,11 @@ export const toggleTodoApi = (
     .then((data) => checkResponse<ItemToDo>(data))
     .then((json) => json)
     .catch((err) => Promise.reject(err));
+};
+
+export const unitApi: UnitApi = {
+  getTodosApi,
+  addTodoApi,
+  deleteTodoApi,
+  toggleTodoApi,
 };

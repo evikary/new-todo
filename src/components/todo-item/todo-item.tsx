@@ -2,9 +2,9 @@ import { Box, Divider, Typography } from "@mui/material";
 import ToolBar from "../todo-tool-bar/todo-tool-bar";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import { useSelector } from "react-redux";
-import { todosSelector } from "../../storage/selector";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { todoSelector } from "../../storage/slice/todo-slice";
 
 interface ToDoProps {
   id: string;
@@ -14,7 +14,8 @@ interface ToDoProps {
 }
 
 const ToDoItem = ({ id, title, done, typeTask }: ToDoProps) => {
-  const { todos } = useSelector(todosSelector);
+  // const { todos } = useSelector(todosSelector);
+  const todos = useAppSelector(todoSelector.todos);
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {

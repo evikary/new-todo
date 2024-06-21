@@ -14,10 +14,10 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { ChangeEvent, useState } from "react";
-import { createTodoAction } from "../../storage/actions";
-import { useDispatch } from "react-redux";
 import { setFirstLetter } from "../../utils/common-utils";
 import { ItemToDo } from "../../types/types";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { todoAction } from "../../storage/slice/todo-slice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -32,7 +32,7 @@ const style = {
 };
 
 const AddToDoButton = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<Pick<ItemToDo, "title" | "typeTask">>({
     title: "",
@@ -56,7 +56,7 @@ const AddToDoButton = () => {
     if (form.title === "") {
       handleClose();
     } else {
-      dispatch(createTodoAction(form));
+      dispatch(todoAction.fetchAddTodo(form));
       handleClose();
       setForm({ title: "", typeTask: "work" });
     }

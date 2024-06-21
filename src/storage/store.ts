@@ -1,15 +1,16 @@
-import { composeWithDevTools } from "@redux-devtools/extension";
-import { applyMiddleware, createStore } from "redux";
-import thunk from "redux-thunk";
+import { unitApi } from "../services/api";
 import { rootReducer } from "./rootReducer";
+import { configureStore } from "@reduxjs/toolkit";
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
-
-export type RootState = ReturnType<typeof rootReducer>;
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: unitApi,
+      },
+    }),
+});
 
 export default store;
-
-// такая реализация работает только с версией "redux": "^4.1.1",  "react-redux": "^7.2.6", "redux-thunk": "^2.4.0",
