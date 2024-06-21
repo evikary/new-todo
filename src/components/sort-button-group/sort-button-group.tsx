@@ -1,27 +1,17 @@
 import { Tab, Tabs } from "@mui/material";
-import { useDispatch } from "react-redux";
-import {
-  getTodosAllAction,
-  getTodosDoneAction,
-  getTodosPersonAction,
-  getTodosWorkAction,
-} from "../../storage/actions";
 import { useState } from "react";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { todoAction } from "../../storage/slice/todo-slice";
 
 const SortButtonGroup = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState("all");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    if (newValue === "all") {
-      dispatch(getTodosAllAction());
-    } else if (newValue === "work") {
-      dispatch(getTodosWorkAction());
-    } else if (newValue === "person") {
-      dispatch(getTodosPersonAction());
-    } else {
-      dispatch(getTodosDoneAction());
-    }
+  const handleChange = (
+    event: React.SyntheticEvent,
+    newValue: "all" | "work" | "person" | "done"
+  ) => {
+    dispatch(todoAction.sortTodos(newValue));
     setValue(newValue);
   };
 

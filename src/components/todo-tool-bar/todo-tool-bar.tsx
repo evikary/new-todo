@@ -12,14 +12,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import MenuIcon from "@mui/icons-material/Menu";
 import EditIcon from "@mui/icons-material/Edit";
-import { useDispatch } from "react-redux";
-import {
-  deleteTodoAction,
-  toggleDoneAction,
-  toggleTitleAction,
-} from "../../storage/actions";
 import { ChangeEvent, useState } from "react";
 import { setFirstLetter } from "../../utils/common-utils";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { todoAction } from "../../storage/slice/todo-slice";
 
 interface ToolBarProps {
   idTodo: string;
@@ -40,7 +36,7 @@ const style = {
 };
 
 const ToolBar = ({ idTodo, titleTodo, done }: ToolBarProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState({ title: titleTodo });
   const handleOpen = () => setIsOpen(true);
@@ -53,17 +49,17 @@ const ToolBar = ({ idTodo, titleTodo, done }: ToolBarProps) => {
     });
   };
 
-  const deleteTask = (id: string) => dispatch(deleteTodoAction(id));
+  const deleteTask = (id: string) => dispatch(todoAction.fetchDeleteTodo(id));
   const editTask = () => handleOpen();
   const taskIsDone = (id: string) =>
-    dispatch(toggleDoneAction(id, { done: !done }));
+    dispatch(todoAction.fetchUpdateTodo({ id, data: { done: !done } }));
 
   const saveTask = (id: string) => {
     if (form.title === "") {
       setForm({ title: titleTodo });
       handleClose();
     } else {
-      dispatch(toggleTitleAction(id, { title: form.title }));
+      dispatch(todoAction.fetchUpdateTodo({ id, data: { title: form.title } }));
       handleClose();
     }
   };
@@ -74,7 +70,11 @@ const ToolBar = ({ idTodo, titleTodo, done }: ToolBarProps) => {
       name: "Удалить",
       onClick: () => deleteTask(idTodo),
     },
-    { icon: <CheckIcon />, name: "Сделано", onClick: () => taskIsDone(idTodo) },
+    {
+      icon: <CheckIcon />,
+      name: "Сделано",
+      onClick: () => taskIsDone(idTodo),
+    },
     { icon: <EditIcon />, name: "Редактировать", onClick: editTask },
   ];
 
